@@ -1,7 +1,7 @@
 from flask import  Flask
+from config import Config#从config模块导入Config类
 app = Flask(__name__)
-print('等会谁（哪个包或模块）在使用我：',__name__)
-
+app.config.from_object(Config)
 
 
 

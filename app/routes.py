@@ -1,5 +1,6 @@
 from app import app
-from flask import render_template  # 从flask包中导入render_template函数
+from flask import render_template, flash, redirect, url_for  # 从flask包中导入render_template函数
+from app.forms import LoginForm
 
 
 @app.route('/')
@@ -17,3 +18,12 @@ def index():
         }
     ]
     return render_template('index.html', title='Home', user=user, posts=posts)
+
+
+@app.route('/loginxxxxxx', methods=['GET', 'POST'])
+def login():
+    login_from = LoginForm()
+    if login_from.validate_on_submit():
+        flash('Login requested for user {},remember_me={}'.format(login_from.username.data, login_from.remember_me.data))
+        return redirect(url_for('index') )
+    return render_template('login.html', title='Sign In', form=login_from)
